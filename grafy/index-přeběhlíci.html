@@ -1,0 +1,352 @@
+
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text">
+<link href="https://fonts.googleapis.com/css2?family=Asap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+
+<style>
+
+.light-gray-text {
+  fill: #aaa;
+  color: #aaa;
+}
+
+.eighteen {
+  fill: #009FB8;
+  font-weight: bold;
+}
+
+.nineteen {
+  fill: #3E80B6;
+  font-weight: bold;
+}
+
+.twenty {
+  fill: #e63946;
+  font-weight: bold;
+}
+
+text {
+  font-family: "Asap" !important;
+}
+
+.paragraph {
+  font-family: "Noticia text" !important;
+}
+
+.href {
+  color: #666;
+  fill: #666;
+}
+ 
+.highcharts-title {
+  font-family: "Noticia text" !important;
+  font-weight: bold !important;
+  text-align: left !important; 
+  /* font-size: 0.9rem !important;  */
+  left: 10px !important;
+}
+
+.highcharts-subtitle {
+  text-align: left !important; 
+  font-size: 0.95rem !important; 
+  left: 10px !important;
+  font-family: "Asap" !important;
+}
+
+.highcharts-data-labels text {
+  font-size: 0.85rem !important;
+}
+
+.highcharts-axis-labels text {
+  font-size: 0.85rem !important;
+}
+
+text.highcharts-plot-line-label {
+  font-size: 0.85rem !important;
+  fill: #666;
+}
+
+text.highcharts-plot-band-label {
+  font-size: 0.85rem !important;
+  fill: #666;
+}
+
+text.highcharts-credits {
+  font-size: 0.75rem !important;
+}
+
+.highcharts-tooltip span {
+  font-family: "Asap" !important;
+}
+
+/* Custom classes */
+.axis-label-on-tick {
+  fill: #aaa;
+  color: #aaa;
+}
+
+.mock-empty-line {
+  fill: #fff;
+  color: #fff;
+}
+
+.highcharts-tooltip-container {
+   z-index: 100 !important;
+}
+
+.chart {
+  max-width:100%;
+  margin:1em auto;
+}
+
+.small {
+  max-width:350px;
+  min-width:300px;
+  height:400px;
+  margin:1em auto;
+  float:left;
+}
+
+</style>
+
+<div id="cssd"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="cssdout"></div>
+    <div class="chart small" id="cssdin"></div>
+</div>
+
+<div id="kdu"></div>
+
+<script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
+<script type="text/javascript" src="https://code.highcharts.com/modules/sankey.js"></script>
+
+<script>
+
+Highcharts.setOptions({
+    lang: {
+      months: ['ledna', 'února', 'března', 'dubna', 'května', 'června', 'července', 'srpna', 'září', 'října', 'listopadu', 'prosince'],
+      shortMonths: ['leden', 'únor', 'březen', 'duben', 'květen', 'červen', 'červenec', 'srpen', 'září', 'říjen', 'listopad', 'prosinec'],
+      decimalPoint: ',',
+      numericSymbols: [' tis.', ' mil.', 'mld.', 'T', 'P', 'E'],
+      rangeSelectorFrom: 'od',
+      rangeSelectorTo: 'do',
+      rangeSelectorZoom: 'vyberte období:',
+    },
+  });
+
+let chartWidth =
+document.getElementById("cssd").offsetWidth > 600
+  ? 600
+  : document.getElementById("cssd").offsetWidth;
+
+const colors = {
+  'cssd': '#ff8e00',
+  'kscm': '#ff0000',
+  'zeleni': '#027445',
+  'top': '#755b7b',
+  'ano': '#2b2c5f',
+  'stan': '#afca43',
+  'kdu': '#ffc900',
+  'ods': '#0065ab',
+  'pirati': '#000',
+  'spd': '#990000',
+  'prisaha': '#2187ff',
+  'nk': '#aaa',
+  'uni': '#aaa',
+  'ostatni': '#eee',
+
+  'new': '#31a354',
+  'old': '#de2d26',
+  'in': '#3182bd',
+  'out': '#3182bd',
+  'dal': '#756bb1'
+}
+
+const uzle = [
+  {id:'ČSSD 2018',color: colors['cssd']},
+  {id:'ČSSD 2022',color: colors['cssd']},
+  {id:'KDU-ČSL 2018',color: colors['kdu']},
+  {id:'KDU-ČSL 2022',color: colors['kdu']},
+  {id:'ANO',color: colors['ano']},
+  {id:'STAN',color: colors['stan']},
+  {id:'SPD',color: colors['spd']},
+  {id:'KDU-ČSL',color: colors['kdu']},
+  {id:'ODS',color: colors['ods']},
+  {id:'Přísaha',color: colors['prisaha']},
+  {id:'KSČM',color: colors['kscm']},
+  {id:'TOP 09',color: colors['top']},
+  {id:'Zelení',color: colors['zeleni']},
+  {id:'Piráti',color: colors['pirati']},
+  {id:'Pro zdraví',color: colors['uni']},
+  {id:'Lepší sever',color: colors['uni']},
+  {id:'ostatní',color: colors['ostatni']},
+  
+  {id:'nováčci',color: colors['new']},
+  {id:'nezávislí kandidáti',color: colors['nk']},
+  {id:'nezávislí kandidáti ',color: colors['nk']},
+  {id:'už nekandidují',color: colors['old']},
+  {id:'přiběhli',color: colors['in']},
+  {id:'přeběhli',color: colors['out']},
+  {id:'nevíme',color: colors['dal']},
+  {id:'nevíme ',color: colors['dal']},
+]
+
+</script>
+
+<script>
+
+Highcharts.chart('cssd', {
+  chart: {
+      width: chartWidth,
+      height: 600 
+  },
+  title: {
+      text: 'ČSSD, obecní volby 2018 × 2022', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  tooltip: {
+      valueSuffix: ''
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: [
+          ["ČSSD 2018","ČSSD 2022",2181,colors['cssd']],
+          ["ČSSD 2018","už nekandidují",7801,colors['old']],
+          ["ČSSD 2018","nezávislí kandidáti ",2058,colors['nk']],
+          ["ČSSD 2018","přeběhli",785,colors['out']],
+          ["ČSSD 2018","nevíme ",682,colors['dal']],
+          ["nováčci","ČSSD 2022",1825,colors['new']],
+          ["nezávislí kandidáti","ČSSD 2022",188,colors['nk']],
+          ["přiběhli","ČSSD 2022",168,colors['in']],
+          ["nevíme","ČSSD 2022",801,colors['dal']],
+      ],
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('cssdout', {
+  chart: {
+      height: 400 
+  },
+  title: {
+      text: 'Přeběhli: 785 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  tooltip: {
+      valueSuffix: ''
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: [
+          ["ČSSD 2018","Pro zdraví",90,colors['uni']],
+          ["ČSSD 2018","ANO",69,colors['ano']],
+          ["ČSSD 2018","STAN",67,colors['stan']],
+          ["ČSSD 2018","SPD",64,colors['spd']],
+          ["ČSSD 2018","KDU-ČSL",63,colors['kdu']],
+          ["ČSSD 2018","ODS",49,colors['ods']],
+          ["ČSSD 2018","Přísaha",38,colors['prisaha']],
+          ["ČSSD 2018","KSČM",29,colors['kscm']],
+          ["ČSSD 2018","Lepší sever",26,colors['uni']],
+          ["ČSSD 2018","ostatní",290,colors['ostatni']]
+      ],
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('cssdin', {
+  chart: {
+      height: 400 
+  },
+  title: {
+      text: 'Přiběhli: 168 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  tooltip: {
+      valueSuffix: ''
+  },
+  series: [{
+      keys: ['from', 'to', 'weight'],
+      data: [
+          ["KSČM","ČSSD 2022",46], 
+          ["ODS","ČSSD 2022",20],
+          ["KDU-ČSL","ČSSD 2022",16],
+          ["STAN","ČSSD 2022",12],
+          ["ANO","ČSSD 2022",9],
+          ["SPD","ČSSD 2022",7],
+          ["TOP 09","ČSSD 2022",6],
+          ["Zelení","ČSSD 2022",5],
+          ["Piráti","ČSSD 2022",4],
+          ["ostatní","ČSSD 2022",43]
+      ],
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('kdu', {
+  chart: {
+      width: chartWidth,
+      height: 600 
+  },
+  title: {
+      text: 'KDU-ČSL, obecní volby 2018 × 2022', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  tooltip: {
+      valueSuffix: ''
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: [
+          ["KDU-ČSL 2018","KDU-ČSL 2022",7987,colors['kdu']],
+          ["KDU-ČSL 2018","už nekandidují",6967,colors['old']],
+          ["KDU-ČSL 2018","nezávislí kandidáti ",1137,colors['nk']],
+          ["KDU-ČSL 2018","přeběhli",331,colors['in']],
+          ["KDU-ČSL 2018","nevíme ",-522,colors['dal']],
+          ["nováčci","KDU-ČSL 2022",4862,colors['new']],
+          ["nezávislí kandidáti","KDU-ČSL 2022",910,colors['nk']],
+          ["přiběhli","KDU-ČSL 2022",416,colors['in']],
+          ["nevíme","KDU-ČSL 2022",-581,colors['dal']]
+      ],
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+</script>
+
