@@ -113,14 +113,81 @@ text.highcharts-credits {
 
 </style>
 
+<div id="kdu"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="kdukam"></div>
+    <div class="chart small" id="kduodkud"></div>
+</div>
+
+<div id="ods"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="odskam"></div>
+    <div class="chart small" id="odsodkud"></div>
+</div>
+
+<div id="kscm"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="kscmkam"></div>
+    <div class="chart small" id="kscmodkud"></div>
+</div>
+
+<div id="ano"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="anokam"></div>
+    <div class="chart small" id="anoodkud"></div>
+</div>
+
+<div id="stan"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="stankam"></div>
+    <div class="chart small" id="stanodkud"></div>
+</div>
+
 <div id="cssd"></div>
 
 <div style="max-width: 100%; overflow: hidden; display: block;">
-    <div class="chart small" id="cssdout"></div>
-    <div class="chart small" id="cssdin"></div>
+    <div class="chart small" id="cssdkam"></div>
+    <div class="chart small" id="cssdodkud"></div>
 </div>
 
-<div id="kdu"></div>
+<div id="spd"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="spdkam"></div>
+    <div class="chart small" id="spdodkud"></div>
+</div>
+
+<div id="pirati"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="piratikam"></div>
+    <div class="chart small" id="piratiodkud"></div>
+</div>
+
+<div id="top"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="topkam"></div>
+    <div class="chart small" id="topodkud"></div>
+</div>
+
+<div id="prisaha"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="prisahaodkud"></div>
+</div>
+
+<div id="zeleni"></div>
+
+<div style="max-width: 100%; overflow: hidden; display: block;">
+    <div class="chart small" id="zelenikam"></div>
+    <div class="chart small" id="zeleniodkud"></div>
+</div>
 
 <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
 <script type="text/javascript" src="https://code.highcharts.com/modules/sankey.js"></script>
@@ -140,73 +207,391 @@ Highcharts.setOptions({
   });
 
 let chartWidth =
-document.getElementById("cssd").offsetWidth > 600
+document.getElementById("kdu").offsetWidth > 600
   ? 600
-  : document.getElementById("cssd").offsetWidth;
+  : document.getElementById("kdu").offsetWidth;
 
 const colors = {
-  'cssd': '#ff8e00',
-  'kscm': '#ff0000',
-  'zeleni': '#027445',
-  'top': '#755b7b',
-  'ano': '#2b2c5f',
-  'stan': '#afca43',
   'kdu': '#ffc900',
   'ods': '#0065ab',
-  'pirati': '#000',
+  'kscm': '#ff0000',
+  'ano': '#2b2c5f',
+  'stan': '#afca43',
+  'cssd': '#ff8e00',
   'spd': '#990000',
+  'pirati': '#000',
+  'top': '#755b7b',
   'prisaha': '#2187ff',
+  'zeleni': '#027445',
   'nk': '#aaa',
+
   'uni': '#aaa',
   'ostatni': '#eee',
 
-  'new': '#31a354',
-  'old': '#de2d26',
-  'in': '#3182bd',
-  'out': '#3182bd',
-  'dal': '#756bb1'
+  'new': '#18d1aa',
+  'old': '#f77ea2',
+  'in': '#994c33',
+  'out': '#994c33'
 }
 
 const uzle = [
-  {id:'ČSSD 2018',color: colors['cssd']},
-  {id:'ČSSD 2022',color: colors['cssd']},
-  {id:'KDU-ČSL 2018',color: colors['kdu']},
-  {id:'KDU-ČSL 2022',color: colors['kdu']},
-  {id:'ANO',color: colors['ano']},
-  {id:'STAN',color: colors['stan']},
-  {id:'SPD',color: colors['spd']},
-  {id:'KDU-ČSL',color: colors['kdu']},
-  {id:'ODS',color: colors['ods']},
-  {id:'Přísaha',color: colors['prisaha']},
-  {id:'KSČM',color: colors['kscm']},
-  {id:'TOP 09',color: colors['top']},
-  {id:'Zelení',color: colors['zeleni']},
-  {id:'Piráti',color: colors['pirati']},
-  {id:'Pro zdraví',color: colors['uni']},
-  {id:'Lepší sever',color: colors['uni']},
-  {id:'ostatní',color: colors['ostatni']},
-  
-  {id:'nováčci',color: colors['new']},
-  {id:'nezávislí kandidáti',color: colors['nk']},
-  {id:'nezávislí kandidáti ',color: colors['nk']},
-  {id:'už nekandidují',color: colors['old']},
-  {id:'přiběhli',color: colors['in']},
-  {id:'přeběhli',color: colors['out']},
-  {id:'nevíme',color: colors['dal']},
-  {id:'nevíme ',color: colors['dal']},
-]
+{id: 'KDU-ČSL 2018', color: colors['kdu']},
+{id: 'KDU-ČSL 2022', color: colors['kdu']},
+{id: 'ODS 2018', color: colors['ods']},
+{id: 'ODS 2022', color: colors['ods']},
+{id: 'KSČM 2018', color: colors['kscm']},
+{id: 'KSČM 2022', color: colors['kscm']},
+{id: 'ANO 2018', color: colors['ano']},
+{id: 'ANO 2022', color: colors['ano']},
+{id: 'STAN 2018', color: colors['stan']},
+{id: 'STAN 2022', color: colors['stan']},
+{id: 'ČSSD 2018', color: colors['cssd']},
+{id: 'ČSSD 2022', color: colors['cssd']},
+{id: 'SPD 2018', color: colors['spd']},
+{id: 'SPD 2022', color: colors['spd']},
+{id: 'Piráti 2018', color: colors['pirati']},
+{id: 'Piráti 2022', color: colors['pirati']},
+{id: 'TOP 2018', color: colors['top']},
+{id: 'TOP 2022', color: colors['top']},
+{id: 'Přísaha 2018', color: colors['prisaha']},
+{id: 'Přísaha 2022', color: colors['prisaha']},
+{id: 'Zelení 2018', color: colors['zeleni']},
+{id: 'Zelení 2022', color: colors['zeleni']},
 
-</script>
+{id: 'KDU-ČSL', color: colors['kdu']},
+{id: 'ODS', color: colors['ods']},
+{id: 'KSČM', color: colors['kscm']},
+{id: 'ANO', color: colors['ano']},
+{id: 'STAN', color: colors['stan']},
+{id: 'ČSSD', color: colors['cssd']},
+{id: 'SPD', color: colors['spd']},
+{id: 'Piráti', color: colors['pirati']},
+{id: 'TOP', color: colors['top']},
+{id: 'Přísaha', color: colors['prisaha']},
+{id: 'Zelení', color: colors['zeleni']},
 
-<script>
+{id: 'Nestraníci', color: colors['uni']},
+{id: 'SNK ED', color: colors['uni']},
+{id: 'Pro zdraví', color: colors['uni']},
+{id: 'Trikolora', color: colors['uni']},
+{id: 'DOMOV', color: colors['uni']},
+{id: 'SPOZ', color: colors['uni']},
+{id: 'Změna pro Lib.', color: colors['uni']},
+{id: 'Volba pro KK', color: colors['uni']},
+{id: 'Soukromníci', color: colors['uni']},
+{id: 'Budoucnost', color: colors['uni']},
+{id: 'Změna', color: colors['uni']},
+{id: 'ostatní', color: colors['ostatni']},
 
-Highcharts.chart('cssd', {
+{id: 'už nekandidují', color: colors['old']},
+{id: 'nezávislí kandidáti ', color: colors['nk']},
+{id: 'přeběhli', color: colors['out']},   
+{id: 'nováčci', color: colors['new']},
+{id: 'nezávislí kandidáti', color: colors['nk']},
+{id: 'přišli', color: colors['in']}
+];
+
+const 
+kdu_proudy = [
+["KDU-ČSL 2018","KDU-ČSL 2022",7987],
+["KDU-ČSL 2018","už nekandidují",6445,colors['old']],
+["KDU-ČSL 2018","nezávislí kandidáti ",1137,colors['nk']],
+["KDU-ČSL 2018","přeběhli",331,colors['out']],
+["nováčci","KDU-ČSL 2022",4281],
+["nezávislí kandidáti","KDU-ČSL 2022",910],
+["přišli","KDU-ČSL 2022",416]
+],
+kdu_kam = [
+["KDU-ČSL 2018","STAN",71,colors['stan']],
+["KDU-ČSL 2018","ODS",50,colors['ods']],
+["KDU-ČSL 2018","ANO",30,colors['ano']],
+["KDU-ČSL 2018","Nestraníci",24,colors['uni']],
+["KDU-ČSL 2018","KSČM",18,colors['kscm']],
+["KDU-ČSL 2018","ostatní",138,colors['ostatni']]
+],
+kdu_odkud = [
+["ČSSD","KDU-ČSL 2022",63],
+["Nestraníci","KDU-ČSL 2022",49],
+["STAN","KDU-ČSL 2022",47],
+["ODS","KDU-ČSL 2022",44],
+["ANO","KDU-ČSL 2022",34],
+["ostatní","KDU-ČSL 2022",179]
+],
+ods_proudy = [
+["ODS 2018","ODS 2022",6653],
+["ODS 2018","už nekandidují",5071,colors['old']],
+["ODS 2018","nezávislí kandidáti ",804,colors['nk']],
+["ODS 2018","přeběhli",351,colors['out']],
+["nováčci","ODS 2022",3412],
+["nezávislí kandidáti","ODS 2022",694],
+["přišli","ODS 2022",446]
+],
+ods_kam = [
+["ODS 2018","STAN",58,colors['stan']],
+["ODS 2018","KDU-ČSL",44,colors['kdu']],
+["ODS 2018","ANO",33,colors['ano']],
+["ODS 2018","TOP 09",28,colors['top']],
+["ODS 2018","ČSSD",20,colors['cssd']],
+["ODS 2018","ostatní",168,colors['ostatni']]
+],
+ods_odkud = [
+["KDU-ČSL","ODS 2022",50],
+["ČSSD","ODS 2022",49],
+["ANO","ODS 2022",41],
+["STAN","ODS 2022",38],
+["KSČM","ODS 2022",29],
+["ostatní","ODS 2022",239]
+],
+kscm_proudy = [
+["KSČM 2018","KSČM 2022",5187],
+["KSČM 2018","už nekandidují",8624,colors['old']],
+["KSČM 2018","nezávislí kandidáti ",1095,colors['nk']],
+["KSČM 2018","přeběhli",385,colors['out']],
+["nováčci","KSČM 2022",2203],
+["nezávislí kandidáti","KSČM 2022",170],
+["přišli","KSČM 2022",133]
+],
+kscm_kam = [
+["KSČM 2018","SPD",57,colors['spd']],
+["KSČM 2018","ČSSD",46,colors['cssd']],
+["KSČM 2018","ANO",45,colors['ano']],
+["KSČM 2018","ODS",29,colors['ods']],
+["KSČM 2018","KDU-ČSL",27,colors['kdu']],
+["KSČM 2018","ostatní",181,colors['ostatni']]
+],
+kscm_odkud = [
+["ČSSD","KSČM 2022",29],
+["ANO","KSČM 2022",22],
+["KDU-ČSL","KSČM 2022",18],
+["ODS","KSČM 2022",12],
+["SPD","KSČM 2022",7],
+["ostatní","KSČM 2022",45]
+],
+ano_proudy = [
+["ANO 2018","ANO 2022",3270],
+["ANO 2018","už nekandidují",3997,colors['old']],
+["ANO 2018","nezávislí kandidáti ",993,colors['nk']],
+["ANO 2018","přeběhli",320,colors['out']],
+["nováčci","ANO 2022",2496],
+["nezávislí kandidáti","ANO 2022",207],
+["přišli","ANO 2022",273]
+],
+ano_kam = [
+["ANO 2018","ODS",41,colors['ods']],
+["ANO 2018","KDU-ČSL",34,colors['kdu']],
+["ANO 2018","SPD",28,colors['spd']],
+["ANO 2018","STAN",27,colors['stan']],
+["ANO 2018","KSČM",22,colors['kscm']],
+["ANO 2018","ostatní",168,colors['ostatni']]
+],
+ano_odkud = [
+["ČSSD","ANO 2022",69],
+["KSČM","ANO 2022",45],
+["ODS","ANO 2022",33],
+["KDU-ČSL","ANO 2022",30],
+["SPD","ANO 2022",12],
+["ostatní","ANO 2022",84]
+],
+stan_proudy = [
+["STAN 2018","STAN 2022",2269],
+["STAN 2018","už nekandidují",2767,colors['old']],
+["STAN 2018","nezávislí kandidáti ",1553,colors['nk']],
+["STAN 2018","přeběhli",292,colors['out']],
+["nováčci","STAN 2022",2303],
+["nezávislí kandidáti","STAN 2022",765],
+["přišli","STAN 2022",478]
+],
+stan_kam = [
+["STAN 2018","KDU-ČSL",47,colors['kdu']],
+["STAN 2018","ODS",38,colors['ods']],
+["STAN 2018","Nezávislí",25,colors['uni']],
+["STAN 2018","SNK ED",23,colors['uni']],
+["STAN 2018","Piráti",15,colors['pirati']],
+["STAN 2018","ostatní",144,colors['ostatni']]
+],
+stan_odkud = [
+["KDU-ČSL","STAN 2022",71],
+["ČSSD","STAN 2022",67],
+["ODS","STAN 2022",58],
+["TOP 09","STAN 2022",43],
+["ANO","STAN 2022",27],
+["ostatní","STAN 2022",212]
+],
+cssd_proudy = [
+["ČSSD 2018","ČSSD 2022",3288],
+["ČSSD 2018","už nekandidují",7376,colors['old']],
+["ČSSD 2018","nezávislí kandidáti ",2058,colors['nk']],
+["ČSSD 2018","přeběhli",785,colors['out']],
+["nováčci","ČSSD 2022",1519],
+["nezávislí kandidáti","ČSSD 2022",188],
+["přišli","ČSSD 2022",168]
+],
+cssd_kam = [
+["ČSSD 2018","Pro zdraví",90,colors['uni']],
+["ČSSD 2018","ANO",69,colors['ano']],
+["ČSSD 2018","STAN",67,colors['stan']],
+["ČSSD 2018","SPD",64,colors['spd']],
+["ČSSD 2018","KDU-ČSL",63,colors['kdu']],
+["ČSSD 2018","ostatní",432,colors['ostatni']]
+],
+cssd_odkud = [
+["KSČM","ČSSD 2022",46],
+["ODS","ČSSD 2022",20],
+["KDU-ČSL","ČSSD 2022",16],
+["STAN","ČSSD 2022",12],
+["ANO","ČSSD 2022",9],
+["ostatní","ČSSD 2022",65]
+],
+spd_proudy = [
+["SPD 2018","SPD 2022",985],
+["SPD 2018","už nekandidují",3106,colors['old']],
+["SPD 2018","nezávislí kandidáti ",266,colors['nk']],
+["SPD 2018","přeběhli",197,colors['out']],
+["nováčci","SPD 2022",2920],
+["nezávislí kandidáti","SPD 2022",216],
+["přišli","SPD 2022",369]
+],
+spd_kam = [
+["SPD 2018","Trikolora",22,colors['uni']],
+["SPD 2018","Přísaha",20,colors['prisaha']],
+["SPD 2018","DOMOV",14,colors['uni']],
+["SPD 2018","KDU-ČSL",14,colors['kdu']],
+["SPD 2018","ANO",12,colors['ano']],
+["SPD 2018","ostatní",115,colors['ostatni']]
+],
+spd_odkud = [
+["ČSSD","SPD 2022",64],
+["KSČM","SPD 2022",57],
+["SPOZ","SPD 2022",42],
+["Změna pro Lib.","SPD 2022",29],
+["ANO","SPD 2022",28],
+["ostatní","SPD 2022",149]
+],
+pirati_proudy = [
+["Piráti 2018","Piráti 2022",1291],
+["Piráti 2018","už nekandidují",1375,colors['old']],
+["Piráti 2018","nezávislí kandidáti ",196,colors['nk']],
+["Piráti 2018","přeběhli",100,colors['out']],
+["nováčci","Piráti 2022",1520],
+["nezávislí kandidáti","Piráti 2022",130],
+["přišli","Piráti 2022",129]
+],
+pirati_kam = [
+["Piráti 2018","Zelení",31,colors['zeleni']],
+["Piráti 2018","ODS",11,colors['ods']],
+["Piráti 2018","STAN",11,colors['stan']],
+["Piráti 2018","KDU-ČSL",8,colors['kdu']],
+["Piráti 2018","ANO",4,colors['ano']],
+["Piráti 2018","ostatní",35,colors['ostatni']]
+],
+pirati_odkud = [
+["Zelení","Piráti 2022",24],
+["STAN","Piráti 2022",15],
+["TOP 09","Piráti 2022",13],
+["KDU-ČSL","Piráti 2022",12],
+["ČSSD","Piráti 2022",11],
+["ostatní","Piráti 2022",54]
+],
+top_proudy = [
+["TOP 2018","TOP 2022",1340],
+["TOP 2018","už nekandidují",1693,colors['old']],
+["TOP 2018","nezávislí kandidáti ",431,colors['nk']],
+["TOP 2018","přeběhli",183,colors['out']],
+["nováčci","TOP 2022",748],
+["nezávislí kandidáti","TOP 2022",265],
+["přišli","TOP 2022",136]
+],
+top_kam = [
+["TOP 2018","STAN",43,colors['stan']],
+["TOP 2018","ODS",27,colors['ods']],
+["TOP 2018","KDU-ČSL",17,colors['kdu']],
+["TOP 2018","Piráti",13,colors['pirati']],
+["TOP 2018","Volba pro KK",9,colors['uni']],
+["TOP 2018","ostatní",74,colors['ostatni']]
+],
+top_odkud = [
+["ODS","TOP 2022",28],
+["STAN","TOP 2022",14],
+["KDU-ČSL","TOP 2022",12],
+["ANO","TOP 2022",10],
+["ČSSD","TOP 2022",9],
+["ostatní","TOP 2022",63]
+],
+prisaha_proudy = [
+["Přísaha 2018","Přísaha 2022",null],
+["Přísaha 2018","už nekandidují",null,colors['old']],
+["Přísaha 2018","nezávislí kandidáti ",null,colors['nk']],
+["Přísaha 2018","přeběhli",null,colors['out']],
+["nováčci","Přísaha 2022",923],
+["nezávislí kandidáti","Přísaha 2022",50],
+["přišli","Přísaha 2022",131]
+],
+prisaha_odkud = [
+["ČSSD","Přísaha 2022",38],
+["SPD","Přísaha 2022",20],
+["ANO","Přísaha 2022",11],
+["Soukromníci","Přísaha 2022",11],
+["STAN","Přísaha 2022",8],
+["ostatní","Přísaha 2022",43]
+],
+zeleni_proudy = [
+["Zelení 2018","Zelení 2022",588],
+["Zelení 2018","už nekandidují",722,colors['old']],
+["Zelení 2018","nezávislí kandidáti ",148,colors['nk']],
+["Zelení 2018","přeběhli",93,colors['out']],
+["nováčci","Zelení 2022",256],
+["nezávislí kandidáti","Zelení 2022",94],
+["přišli","Zelení 2022",79]
+],
+zeleni_kam = [
+["Zelení 2018","Piráti",24,colors['pirati']],
+["Zelení 2018","ODS",13,colors['ods']],
+["Zelení 2018","Budoucnost",11,colors['uni']],
+["Zelení 2018","KDU-ČSL",7,colors['kdu']],
+["Zelení 2018","TOP 09",6,colors['top']],
+["Zelení 2018","ostatní",32,colors['ostatni']]
+],
+zeleni_odkud = [
+["Piráti","Zelení 2022",31],
+["ČSSD","Zelení 2022",11],
+["KSČM","Zelení 2022",5],
+["Změna","Zelení 2022",5],
+["KDU-ČSL","Zelení 2022",4],
+["ostatní","Zelení 2022",23]
+];
+
+// 1 
+
+Highcharts.chart('kdu', {
   chart: {
       width: chartWidth,
-      height: 600 
+      height: 500 
   },
   title: {
-      text: 'ČSSD, obecní volby 2018 × 2022', 
+      text: 'KDU-ČSL, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: kdu_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('kdukam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 331 kandidátů', 
       useHTML: true,
   },
   exporting: {
@@ -215,31 +600,355 @@ Highcharts.chart('cssd', {
   credits: {
       enabled: false
   },
-  tooltip: {
-      valueSuffix: ''
-  },
   series: [{
       keys: ['from', 'to', 'weight', 'color'],
-      data: [
-          ["ČSSD 2018","ČSSD 2022",2181,colors['cssd']],
-          ["ČSSD 2018","už nekandidují",7801,colors['old']],
-          ["ČSSD 2018","nezávislí kandidáti ",2058,colors['nk']],
-          ["ČSSD 2018","přeběhli",785,colors['out']],
-          ["ČSSD 2018","nevíme ",682,colors['dal']],
-          ["nováčci","ČSSD 2022",1825,colors['new']],
-          ["nezávislí kandidáti","ČSSD 2022",188,colors['nk']],
-          ["přiběhli","ČSSD 2022",168,colors['in']],
-          ["nevíme","ČSSD 2022",801,colors['dal']],
-      ],
+      data: kdu_kam,
       nodes: uzle,
       type: 'sankey',
       name: ''
   }]
 });
 
-Highcharts.chart('cssdout', {
+Highcharts.chart('kduodkud', {
   chart: {
-      height: 400 
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 416 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: kdu_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 2
+
+Highcharts.chart('ods', {
+  chart: {
+      width: chartWidth,
+      height: 500 
+  },
+  title: {
+      text: 'ODS, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: ods_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('odskam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 351 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: ods_kam,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('odsodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 446 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: ods_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 3
+
+Highcharts.chart('kscm', {
+  chart: {
+      width: chartWidth,
+      height: 500 
+  },
+  title: {
+      text: 'KSČM, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: kscm_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('kscmkam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 385 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: kscm_kam,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('kscmodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 133 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: kscm_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 4
+
+Highcharts.chart('ano', {
+  chart: {
+      width: chartWidth,
+      height: 500 
+  },
+  title: {
+      text: 'ANO, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: ano_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('anokam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 320 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: ano_kam,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('anoodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 273 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: ano_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 5
+
+Highcharts.chart('stan', {
+  chart: {
+      width: chartWidth,
+      height: 500 
+  },
+  title: {
+      text: 'STAN, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: stan_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('stankam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 292 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: stan_kam,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('stanodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 478 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: stan_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 6
+
+Highcharts.chart('cssd', {
+  chart: {
+      width: chartWidth,
+      height: 500 
+  },
+  title: {
+      text: 'ČSSD, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: cssd_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('cssdkam', {
+  chart: {
+      height: 300 
   },
   title: {
       text: 'Přeběhli: 785 kandidátů', 
@@ -251,35 +960,21 @@ Highcharts.chart('cssdout', {
   credits: {
       enabled: false
   },
-  tooltip: {
-      valueSuffix: ''
-  },
   series: [{
       keys: ['from', 'to', 'weight', 'color'],
-      data: [
-          ["ČSSD 2018","Pro zdraví",90,colors['uni']],
-          ["ČSSD 2018","ANO",69,colors['ano']],
-          ["ČSSD 2018","STAN",67,colors['stan']],
-          ["ČSSD 2018","SPD",64,colors['spd']],
-          ["ČSSD 2018","KDU-ČSL",63,colors['kdu']],
-          ["ČSSD 2018","ODS",49,colors['ods']],
-          ["ČSSD 2018","Přísaha",38,colors['prisaha']],
-          ["ČSSD 2018","KSČM",29,colors['kscm']],
-          ["ČSSD 2018","Lepší sever",26,colors['uni']],
-          ["ČSSD 2018","ostatní",290,colors['ostatni']]
-      ],
+      data: cssd_kam,
       nodes: uzle,
       type: 'sankey',
       name: ''
   }]
 });
 
-Highcharts.chart('cssdin', {
+Highcharts.chart('cssdodkud', {
   chart: {
-      height: 400 
+      height: 300 
   },
   title: {
-      text: 'Přiběhli: 168 kandidátů', 
+      text: 'Přišli: 168 kandidátů', 
       useHTML: true,
   },
   exporting: {
@@ -288,36 +983,47 @@ Highcharts.chart('cssdin', {
   credits: {
       enabled: false
   },
-  tooltip: {
-      valueSuffix: ''
-  },
   series: [{
-      keys: ['from', 'to', 'weight'],
-      data: [
-          ["KSČM","ČSSD 2022",46], 
-          ["ODS","ČSSD 2022",20],
-          ["KDU-ČSL","ČSSD 2022",16],
-          ["STAN","ČSSD 2022",12],
-          ["ANO","ČSSD 2022",9],
-          ["SPD","ČSSD 2022",7],
-          ["TOP 09","ČSSD 2022",6],
-          ["Zelení","ČSSD 2022",5],
-          ["Piráti","ČSSD 2022",4],
-          ["ostatní","ČSSD 2022",43]
-      ],
+      keys: ['from', 'to', 'weight', 'color'],
+      data: cssd_odkud,
       nodes: uzle,
       type: 'sankey',
       name: ''
   }]
 });
 
-Highcharts.chart('kdu', {
+// 7
+
+Highcharts.chart('spd', {
   chart: {
       width: chartWidth,
-      height: 600 
+      height: 500 
   },
   title: {
-      text: 'KDU-ČSL, obecní volby 2018 × 2022', 
+      text: 'SPD, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: spd_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('spdkam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 197 kandidátů', 
       useHTML: true,
   },
   exporting: {
@@ -326,22 +1032,297 @@ Highcharts.chart('kdu', {
   credits: {
       enabled: false
   },
-  tooltip: {
-      valueSuffix: ''
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: spd_kam,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('spdodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 369 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
   },
   series: [{
       keys: ['from', 'to', 'weight', 'color'],
-      data: [
-          ["KDU-ČSL 2018","KDU-ČSL 2022",7987,colors['kdu']],
-          ["KDU-ČSL 2018","už nekandidují",6967,colors['old']],
-          ["KDU-ČSL 2018","nezávislí kandidáti ",1137,colors['nk']],
-          ["KDU-ČSL 2018","přeběhli",331,colors['in']],
-          ["KDU-ČSL 2018","nevíme ",-522,colors['dal']],
-          ["nováčci","KDU-ČSL 2022",4862,colors['new']],
-          ["nezávislí kandidáti","KDU-ČSL 2022",910,colors['nk']],
-          ["přiběhli","KDU-ČSL 2022",416,colors['in']],
-          ["nevíme","KDU-ČSL 2022",-581,colors['dal']]
-      ],
+      data: spd_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 8
+
+Highcharts.chart('pirati', {
+  chart: {
+      width: chartWidth,
+      height: 500 
+  },
+  title: {
+      text: 'Piráti, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: pirati_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('piratikam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 100 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: pirati_kam,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('piratiodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 129 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: pirati_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 9
+
+Highcharts.chart('top', {
+  chart: {
+      width: chartWidth,
+      height: 500 
+  },
+  title: {
+      text: 'TOP 09, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: top_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('topkam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 183 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: top_kam,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('topodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 136 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: top_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 10 
+
+Highcharts.chart('prisaha', {
+  chart: {
+      width: chartWidth,
+      height: 300 
+  },
+  title: {
+      text: 'Přísaha, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: prisaha_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('prisahaodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 131 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: prisaha_odkud,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+// 11
+
+Highcharts.chart('zeleni', {
+  chart: {
+      width: chartWidth,
+      height: 500 
+  },
+  title: {
+      text: 'Zelení, obecní volby 2018 × 2022',
+      useHTML: true
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: zeleni_proudy,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('zelenikam', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přeběhli: 93 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: zeleni_kam,
+      nodes: uzle,
+      type: 'sankey',
+      name: ''
+  }]
+});
+
+Highcharts.chart('zeleniodkud', {
+  chart: {
+      height: 300 
+  },
+  title: {
+      text: 'Přišli: 79 kandidátů', 
+      useHTML: true,
+  },
+  exporting: {
+      enabled: false
+  },
+  credits: {
+      enabled: false
+  },
+  series: [{
+      keys: ['from', 'to', 'weight', 'color'],
+      data: zeleni_odkud,
       nodes: uzle,
       type: 'sankey',
       name: ''
